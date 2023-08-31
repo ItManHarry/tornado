@@ -36,11 +36,16 @@ class LoginHandler(BaseHandler):
         print('User name is : ', name, 'OK')
         self.set_signed_cookie('user', name)
         self.redirect('/')
+class JsonHandler(BaseHandler):
+    def get(self):
+        self.write({'name': 'Harry', 'age': 40})
+        self.set_header('Content-Type', 'application/json')
 from settings import settings
 def make_app():
     return tornado.web.Application([
         (r'/', MainHandler),
         (r'/login', LoginHandler),
+        (r'/json', JsonHandler),
         (r'/(images/bg/1\.jpg)', tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
     ], **settings)
     '''
@@ -62,6 +67,7 @@ def make_app():
    </body>
  </html>
 '''
+
 async def main():
     app = make_app()
     app.listen(80)
