@@ -1,5 +1,6 @@
 import asyncio
 import tornado
+
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_signed_cookie('user')
@@ -46,6 +47,14 @@ def make_app():
         (r'/', MainHandler),
         (r'/login', LoginHandler),
     ], **settings)
+    '''
+    # DNS Rebinding - 限制访问IP地址
+    return tornado.web.Application([
+        (tornado.routing.HostMatches(r'(localhost|127\.0\.0\.1)'), [
+            (r'/', MainHandler),
+            (r'/login', LoginHandler),
+        ])], **settings)
+    '''
 async def main():
     app = make_app()
     app.listen(80)
