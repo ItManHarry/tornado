@@ -1,6 +1,6 @@
 import asyncio
 import tornado
-
+import os
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_signed_cookie('user')
@@ -32,20 +32,16 @@ class LoginHandler(BaseHandler):
             </html>
         '''.format(tornado.escape.xhtml_escape(self.xsrf_token)))
     def post(self):
-        self.xsrf_token
         name = self.get_argument('name')
-        print('User name is : ', name)
+        print('User name is : ', name, 'OK')
         self.set_signed_cookie('user', name)
         self.redirect('/')
-settings = {
-    'cookie_secret': '053d1bd0-6af1-4d81-b195-e72f9a133160',
-    'login_url': '/login',
-    'xsrf_cookies': True,
-}
+from settings import settings
 def make_app():
     return tornado.web.Application([
         (r'/', MainHandler),
         (r'/login', LoginHandler),
+        (r'/(images/bg/1\.jpg)', tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
     ], **settings)
     '''
     # DNS Rebinding - 限制访问IP地址
@@ -55,6 +51,17 @@ def make_app():
             (r'/login', LoginHandler),
         ])], **settings)
     '''
+'''
+页面导入静态文件
+<html>
+   <head>
+      <title>FriendFeed - {{ _("Home") }}</title>
+   </head>
+   <body>
+     <div><img src="{{ static_url("images/logo.png") }}"/></div>
+   </body>
+ </html>
+'''
 async def main():
     app = make_app()
     app.listen(80)
