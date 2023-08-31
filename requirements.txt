@@ -1,0 +1,5 @@
+cffi==1.15.1
+pycares==4.3.0
+pycparser==2.21
+pycurl==7.45.2
+tornado==6.3.3
