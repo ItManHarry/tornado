@@ -9,4 +9,5 @@ settings = {
     # 'static_hash_cache': False,
     # 'serve_traceback': True,
     'static_path': os.path.join(os.path.dirname(__file__), 'static'),
+    'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
 }

@@ -1,6 +1,6 @@
 import asyncio
 import tornado
-import os
+
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_signed_cookie('user')
@@ -37,15 +37,37 @@ class LoginHandler(BaseHandler):
         self.set_signed_cookie('user', name)
         self.redirect('/')
 class JsonHandler(BaseHandler):
+    def initialize(self, email):
+        print('Execute the initialize method ...')
+        self.email = email
+
+    def prepare(self):
+        print('Execute the prepare method ...')
     def get(self):
-        self.write({'name': 'Harry', 'age': 40})
+        print('Execute the get method ...')
+        params = self.request.body
+        if params:
+            print('Parameters : ', params)
+        else:
+            print('Empty parameters!')
+        self.write({'name': 'Harry', 'age': 40, 'email': self.email})
         self.set_header('Content-Type', 'application/json')
+    def on_finish(self):
+        print('Execute the finish method ...')
+class IndexHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('index.html', title='Index Page', items=['Home', 'Python', 'Java', 'C'])
+class HomeHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render_string('home.html', title='Home Page', items=['Home', 'Python', 'Java', 'C'])
 from settings import settings
 def make_app():
     return tornado.web.Application([
         (r'/', MainHandler),
+        (r'/index', IndexHandler),
+        (r'/home', HomeHandler),
         (r'/login', LoginHandler),
-        (r'/json', JsonHandler),
+        (r'/json', JsonHandler, dict(email='guoqian.cheng@hyundai-di.com')),
         (r'/(images/bg/1\.jpg)', tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
     ], **settings)
     '''
