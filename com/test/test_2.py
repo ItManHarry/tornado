@@ -9,7 +9,7 @@ async def m2(param):
     print('This is coroutine two...')
     return f'Method parameter : {param}'
 async def main():
-    print('This is the main coroutine...')
+    print('This is the sys coroutine...')
     print('Waite coroutine one executes...')
     r1 = await m1()
     print('Wait coroutine two executes...')
