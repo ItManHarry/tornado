@@ -3,12 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+    <link rel="icon" type="image/x-icon" href="{{static_url('images/icon/sys.ico')}}">
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/bootstrap-icons.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/jquery-confirm.min.css')}}">
 </head>
 <body>
-<url>
-  {%for item in items%}
-    <li>{{item}}</li>
-  {%end%}
-</url>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <url>
+              {%for item in items%}
+                <li>{{item}}</li>
+              {%end%}
+            </url>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary" id="test">Test</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{static_url('js/jquery-3.6.1.min.js')}}"></script>
+<script type="text/javascript" src="{{static_url('js/bootstrap.bundle.min.js')}}"></script>
+<script type="text/javascript" src="{{static_url('js/jquery-confirm.min.js')}}"></script>
+<script>
+    $(function(){
+        alert('OK')
+        $('#test').click(function(){
+            alert('Button click test ... 111')
+        })
+    })
+</script>
 </body>
 </html>

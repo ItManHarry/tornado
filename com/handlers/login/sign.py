@@ -14,7 +14,7 @@ class LoginHandler(BaseHandler):
             </html>
         '''.format(tornado.escape.xhtml_escape(self.xsrf_token)))
     def post(self):
-        name = self.get_argument('name')
-        print('User name is : ', name, 'OK')
-        self.set_signed_cookie('user', name)
+        user = self.get_argument('name')
+        # print(user)
+        self.set_signed_cookie('user', user)
         self.redirect('/')
