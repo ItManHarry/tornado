@@ -1,7 +1,7 @@
 import asyncio
 import tornado
 from settings import settings
-from urls import urls
+from routes import urls
 def make_app():
     return tornado.web.Application(urls, **settings)
     '''
