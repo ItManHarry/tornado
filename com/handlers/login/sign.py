@@ -17,4 +17,5 @@ class LoginHandler(BaseHandler):
         user = self.get_argument('name')
         # print(user)
         self.set_signed_cookie('user', user)
-        self.redirect('/')
+        # self.redirect('/')
+        self.redirect(self.reverse_url('main'))

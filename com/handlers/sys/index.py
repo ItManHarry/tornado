@@ -1,5 +1,6 @@
 import tornado
 class IndexHandler(tornado.web.RequestHandler):
+    @tornado.web.addslash
     def get(self):
         self.render('index.html', title='Index Page', items=['Home', 'Python', 'Java', 'C'])
 '''
