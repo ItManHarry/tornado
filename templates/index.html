@@ -34,7 +34,9 @@
         $('#test').click(function(){
             // alert('Button click test ... 111')
             $.get('/json', function(data){
-                alert(data)
+                alert(data.name)
+                alert(data.age)
+                alert(data.email)
             }, 'json')
         })
     })
